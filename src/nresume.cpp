@@ -1,7 +1,8 @@
 #include <string>
+#include <assert.h>
 #include <ncurses.h>
 #include <boost/ptr_container/ptr_vector.hpp>
-#include "JsonResume.h"
+#include "Resume.h"
 #include "ResumeLinePrinter.h"
 #include "SuperSection.h"
 #include "SubSection.h"
@@ -13,56 +14,18 @@ int main(int argc, char *argv[])
 {
 	int ch;
 	ResumeLinePrinter printer;
-	SuperSection topsection;
+	Resume resume;
+	SuperSectionInterface* topsection = resume.getSuperSection();
 
 	initscr();
 	cbreak();
 	keypad(stdscr, TRUE);
 
-	string json = "{\
-		'Top Section': {\
-			'Top Sub1 Section': [\
-				'Top Sub1 Top Content',\
-				'Top Sub1 Mid Content',\
-				'Top Sub1 Bot Content',\
-			],\
-			'Top Sub2 Section': [\
-				'Top Sub2 Top Content',\
-				'Top Sub2 Mid Content',\
-				'Top Sub2 Bot Content',\
-			],\
-		},\
-		'Mid Section': {\
-			'Mid Sub1 Section': [\
-				'Mid Sub1 Top Content',\
-				'Mid Sub1 Mid Content',\
-				'Mid Sub1 Bot Content',\
-			],\
-			'Mid Sub2 Section': [\
-				'Mid Sub2 Top Content',\
-				'Mid Sub2 Mid Content',\
-				'Mid Sub2 Bot Content',\
-			],\
-		}\
-		'Bot Section': {\
-			'Bot Sub1 Section': [\
-				'Bot Sub1 Top Content',\
-				'Bot Sub1 Mid Content',\
-				'Bot Sub1 Bot Content',\
-			],\
-			'Bot Sub2 Section': [\
-				'Bot Sub2 Top Content',\
-				'Bot Sub2 Mid Content',\
-				'Bot Sub2 Bot Content',\
-			],\
-		}\
-	}";
-
-	JsonResume theresume = JsonResume(json);
-
 	addch('\n');
 	printer.printLine("THE NCURSES EXPERIMENT", A_REVERSE | A_BOLD);
-	topsection.print(printer);
+	topsection->print(printer);
+
+	assert(topsection != NULL);
 
 	while((ch = getch()) != 'q') {
 		clear();
@@ -70,24 +33,24 @@ int main(int argc, char *argv[])
 		printer.printLine("THE NCURSES EXPERIMENT", A_REVERSE | A_BOLD);
 		switch(ch) {
 			case KEY_UP:
-				topsection.up();
+				topsection->up();
 				break;
 			case KEY_DOWN:
-				topsection.down();
+				topsection->down();
 				break;	
 			case KEY_ENTER:
 			case 10:
-				topsection.select();
+				topsection->select();
 				break;	
 			case KEY_LEFT:
-				topsection.deselect();
+				topsection->deselect();
 				break;	
 		}
 
-		for(int i = 0; i < 5; i++)
-			sections[i]->print(printer);
+		topsection->print(printer);
 	}
 		
 	endwin();
+	delete topsection;
 	return 0;
 }

@@ -53,10 +53,9 @@ void SubSuperSection::highlightOff() {
 
 void SubSuperSection::print(ResumeLinePrinterInterface& printer) {
 	SubSection::print(printer);
-	if(!selected) return;
-	IndentedResumeLinePrinter indentificationifieror(&printer);
-	for_each(subsections.begin(), subsections.end(), [&] (SubSectionInterface& sub) {
-		sub.print(indentificationifieror);
-	});
-	printer.printLine("------------------------------------", A_NORMAL);
+	if(selected) {
+		IndentedResumeLinePrinter indentificationifieror(&printer);
+		SuperSection::print(indentificationifieror);
+		printer.printLine("------------------------------------", A_NORMAL);
+	}
 }

@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include "SubSectionInterface.h"
+#include "ResumeLinePrinterInterface.h"
 
 using namespace std;
 
@@ -20,6 +21,7 @@ class SuperSectionInterface {
 		virtual void setPreDeselect(function<bool()> f)=0;
 		virtual void setPreUp(function<bool()> f)=0;
 		virtual void setPreDown(function<bool()> f)=0;
+		virtual void print(ResumeLinePrinterInterface& printer)=0;
 		virtual ~SuperSectionInterface() {};
 
 };

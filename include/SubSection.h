@@ -10,6 +10,7 @@ using namespace std;
 class SubSection : public SubSectionInterface {
 
 	public:
+		SubSection() { highlighted = true; header = ""; };
 		void setSuperSection(SuperSectionInterface *section);
 		virtual void highlightOn();
 		virtual void highlightOff();
@@ -18,9 +19,9 @@ class SubSection : public SubSectionInterface {
 		virtual ~SubSection() {};
 
 	protected:
-		bool highlighted = false;
-		SuperSectionInterface* supersection = NULL;
-		string header = "";
+		bool highlighted;
+		SuperSectionInterface* supersection;
+		string header;
 
 };
 

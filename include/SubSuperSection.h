@@ -9,10 +9,11 @@ class SubSuperSection : public SubSection, public SuperSection {
 		void highlightOn();
 		void highlightOff();
 		void print(ResumeLinePrinterInterface& printer);
+		SubSuperSection() { selected = false; };
 		~SubSuperSection() {};
 
 	private:
-		bool selected = false;
+		bool selected;
 
 };
 

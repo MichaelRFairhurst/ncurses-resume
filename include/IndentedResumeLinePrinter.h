@@ -10,7 +10,7 @@ class IndentedResumeLinePrinter : public ResumeLinePrinterInterface {
 		void printLine(string text, long unsigned int attributes);
 
 	private:
-		ResumeLinePrinterInterface* indentationof = NULL;
+		ResumeLinePrinterInterface* indentationof;
 		IndentedResumeLinePrinter() {};
 
 };

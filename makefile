@@ -3,14 +3,14 @@ BUILDDIR = build
 EXECUTABLE = $(BUILDDIR)/nresume
 TESTS = $(addprefix $(BUILDDIR)/, $(TESTFILES:Test.cpp=.test))
 
-FILES = JsonResume.cpp SubSection.cpp SuperSection.cpp ResumeLinePrinter.cpp IndentedResumeLinePrinter.cpp SubSuperSection.cpp
+FILES = SubSection.cpp SuperSection.cpp ResumeLinePrinter.cpp IndentedResumeLinePrinter.cpp SubSuperSection.cpp Resume.cpp
 TESTFILES = SuperSectionTest.cpp SubSectionTest.cpp IndentedResumeLinePrinterTest.cpp SubSuperSectionTest.cpp
 
 OBJECTS = $(addprefix $(BUILDDIR)/, $(FILES:.cpp=.o))
 EXEOBJECTS = $(BUILDDIR)/nresume.o $(OBJECTS)
 
 CCMD = g++
-CFLG =-Iinclude -I../json-spirit/json_spirit/ -lncurses --std=c++0x -O0 -g -Wall -Wextra
+CFLG =-Iinclude -lncurses --std=c++0x -O0 -g -Wall -Wextra
 TESTCFLG = -I../gmock/include -I../gmock/gtest/include -lpthread -lboost_unit_test_framework 
 
 # DEFAULT TO EXECUTABLE ONLY
